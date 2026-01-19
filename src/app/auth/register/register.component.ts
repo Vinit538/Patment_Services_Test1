@@ -1,22 +1,23 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: true,
-  imports: [FormsModule,RouterModule],
-  templateUrl: './login.component.html'
+  imports: [FormsModule],
+  templateUrl: './register.component.html'
 })
-export class LoginComponent {
+export class RegisterComponent {
 
   username = '';
   password = '';
   showPassword = false; // 👁️ toggle
 
+
   constructor(
-    private authService: AuthService,
+    private auth: AuthService,
     private router: Router
   ) {}
 
@@ -24,18 +25,17 @@ export class LoginComponent {
     this.showPassword = !this.showPassword;
   }
 
-  login(): void {
-    this.authService.login({
+
+  register() {
+    this.auth.register({
       username: this.username,
       password: this.password
     }).subscribe({
-      next: (token: string) => {
-        localStorage.setItem('token', token);
-        this.router.navigate(['/dashboard']);
+      next: () => {
+        alert('Registration successful');
+        this.router.navigate(['/login']);
       },
-      error: () => {
-        alert('Invalid username or password');
-      }
+      error: () => alert('Username already exists')
     });
   }
 }

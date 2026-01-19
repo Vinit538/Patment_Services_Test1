@@ -1,0 +1,37 @@
+<div class="p-6">
+  <h2 class="text-2xl font-bold mb-4">Payments</h2>
+
+  <table class="w-full border">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="p-2">ID</th>
+        <th class="p-2">Payer</th>
+        <th class="p-2">Amount</th>
+        <th class="p-2">Status</th>
+        <th class="p-2">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let p of payments" class="border-t">
+        <td class="p-2">{{ p.id }}</td>
+        <td class="p-2">{{ p.payerName }}</td>
+        <td class="p-2">{{ p.amount }}</td>
+        <td class="p-2">{{ p.status }}</td>
+        <td class="p-2 space-x-2">
+          <button
+            class="bg-blue-500 text-white px-2 py-1 rounded"
+            (click)="editPayment(p.id)">
+            Edit
+          </button>
+
+          <button
+            class="bg-red-500 text-white px-2 py-1 rounded"
+            (click)="deletePayment(p.id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

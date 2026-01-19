@@ -1,0 +1,85 @@
+<div class="p-6 bg-gray-100 min-h-screen">
+
+  <h1 class="text-3xl font-bold mb-6 text-gray-800">
+    Payment Service Dashboard
+  </h1>
+
+  <!-- STATS -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+
+    <div class="bg-white rounded-lg shadow p-5">
+      <h3 class="text-gray-500">Total Payments</h3>
+      <p class="text-3xl font-bold text-blue-600">{{ total }}</p>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-5">
+      <h3 class="text-gray-500">Success</h3>
+      <p class="text-3xl font-bold text-green-600">{{ success }}</p>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-5">
+      <h3 class="text-gray-500">Pending</h3>
+      <p class="text-3xl font-bold text-yellow-500">{{ pending }}</p>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-5">
+      <h3 class="text-gray-500">Failed</h3>
+      <p class="text-3xl font-bold text-red-600">{{ failed }}</p>
+    </div>
+
+  </div>
+
+  <!-- GET / DELETE SECTION -->
+  <div class="bg-white rounded-lg shadow p-6 max-w-xl">
+
+    <h2 class="text-xl font-semibold mb-4">
+      Get / Delete Payment by ID
+    </h2>
+
+    <input
+      type="number"
+      [(ngModel)]="paymentId"
+      placeholder="Enter Payment ID"
+      class="w-full border px-3 py-2 rounded mb-4"
+    />
+
+    <div class="flex gap-4 mb-4">
+      <button
+        (click)="getById()"
+        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        Get Payment
+      </button>
+
+      <button
+        (click)="deleteById()"
+        class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+        Delete Payment
+      </button>
+    </div>
+
+    <!-- MESSAGE -->
+    <p *ngIf="message" class="text-sm text-red-600 mb-2">
+      {{ message }}
+    </p>
+
+    <!-- PAYMENT RESULT -->
+    <div *ngIf="payment" class="border rounded p-4 bg-gray-50">
+      <p><strong>ID:</strong> {{ payment.id }}</p>
+      <p><strong>Payer:</strong> {{ payment.payerName }}</p>
+      <p><strong>Amount:</strong> {{ payment.amount }}</p>
+      <p><strong>Status:</strong>
+        <span
+          class="px-2 py-1 rounded text-white"
+          [ngClass]="{
+            'bg-green-600': payment.status === 'SUCCESS',
+            'bg-yellow-500': payment.status === 'PENDING',
+            'bg-red-600': payment.status === 'FAILED'
+          }">
+          {{ payment.status }}
+        </span>
+      </p>
+    </div>
+
+  </div>
+
+</div>
